@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg {
+  background: linear-gradient(to top, #f2f2f2, #cccccc);
+}
+
+.ellipsis-content {
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.custom-opaque-background {
+  background-color: rgba(255, 255, 255, 0.99);
+}
