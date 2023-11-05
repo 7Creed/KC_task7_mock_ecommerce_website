@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsPlusLg, BsDashLg } from "react-icons/bs";
 import { Link } from "react-router-dom";
+// import { removeCart } from "../utils/cartUtils";
+
 
 import { useGlobalContext } from "../utils/context";
 
@@ -17,9 +19,10 @@ const Modal = () => {
   };
 
   const subtotal = () => {
-    return state.cart.reduce((acc, cur) => {
+    const total = state.cart.reduce((acc, cur) => {
       return acc + cur.price * cur.qty;
     }, 0);
+    return total.toFixed(2)
   };
 
   // useEffect(() => {
@@ -30,7 +33,9 @@ const Modal = () => {
   return (
     <div className="absolute top-0 left-0 right-0 w-full z-40">
       <div className="flex min-h-screen">
-        <div className="hidden md:block bg-black text-white lg:w-2/5 md:w-1/5 bg-opacity-70"></div>
+        <div className="hidden md:block bg-black text-white lg:w-2/5 md:w-1/5 bg-opacity-70"
+        onClick={handleCloseModal}
+        ></div>
 
         <div className="bg text-white opacity-100 w-full md:w-4/5 p-5 lg:w-3/5">
           <div className="flex justify-between items-center mb-6">
@@ -43,7 +48,7 @@ const Modal = () => {
             />
           </div>
 
-          <div className="flex flex-col md:grid grid-cols-5 gap-4 h-[100vh] overflow-y-auto pb-20">
+          <div className="flex flex-col md:grid grid-cols-5 gap-4 h-[90vh] overflow-y-auto">
             <div className="cart w-full md:h-[100vh] col-span-3">
               <div className="grid place-items-center gap-10">
                 {state.cart.length > 0 ? (
@@ -58,6 +63,8 @@ const Modal = () => {
                       qty,
                       // subtotal,
                     } = item;
+                    const displayTitle = title.split(" ").slice(0, 8).join(" ");
+
                     return (
                       <div
                         key={id}
@@ -71,8 +78,8 @@ const Modal = () => {
                           />
                         </div>
                         <div className="text-black text-lg py-4">
-                          <h2 className="font-bold leading-5 pb-2 whitespace-nowrap overflow-hidden text-ellipsis">
-                            {title}
+                          <h2 className="w-full font-bold leading-5 pb-2 whitespace-nowrap overflow-hidden text-ellipsis max-w-[340px]">
+                            {displayTitle}
                           </h2>
                           <h3 className="">Price: ${price * qty}</h3>
                           <Link
