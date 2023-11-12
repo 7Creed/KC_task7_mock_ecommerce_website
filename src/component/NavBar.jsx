@@ -37,8 +37,12 @@ const NavBar = () => {
             </button>
             {accountModal && (
               <div className="absolute flex flex-col bg-gray-200 text-base md:text-lg w-[19%] md:w-[10%] lg:w-[8%] items-start p-[5px] md:py-4 md:pl-2 rounded-lg">
-                <button className="">Login</button>
-                <button className="">Sign Up</button>
+                <Link to="/login">
+                  <button className="">Login</button>
+                </Link>
+                <Link to="/signup">
+                  <button className="">Sign Up</button>
+                </Link>
               </div>
             )}
           </div>
