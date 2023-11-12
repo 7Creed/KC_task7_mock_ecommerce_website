@@ -1,8 +1,31 @@
 import { Link } from "react-router-dom";
 import AuthLayout from "../component/layout/AuthLayout";
 import { Email, Password, User, GoogleIcon } from "../utils/AccountIcon";
+import { useEffect, useState } from "react";
 
 const Login = () => {
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    // console.log(email.trim() === "", password.trim() === "")
+    // console.log(!(email.trim()) !== "" && !password.trim() !== "")
+    setIsButtonDisabled(email.trim() === "" || password.trim() === "");
+  }, [email, password]);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  // };
+
   return (
     <>
       <AuthLayout>
@@ -18,8 +41,11 @@ const Login = () => {
                   <input
                     type="email"
                     id="email"
-                    className="w-full"
+                    className="w-full outline-none"
                     placeholder="Email Address"
+                    required
+                    value={email}
+                    onChange={handleEmailChange}
                   />
                 </div>
                 <div className="flex items-center gap-2 relative mb-4 border border-gray-300 rounded-3xl p-3">
@@ -27,12 +53,18 @@ const Login = () => {
                   <input
                     type="password"
                     id="password"
-                    className="w-full"
+                    className="w-full outline-none"
                     placeholder="Password"
+                    required
+                    value={password}
+                    onChange={handlePasswordChange}
                   />
                 </div>
                 <div className="flex justify-center mt-6">
-                  <button className="border w-full font-medium text-white text-xl py-2 border-[#fff959] bg-amber-800 hover:bg-[] rounded-[20px]">
+                  <button
+                    className="border w-full font-medium text-white text-xl py-2 border-[#fff959] bg-amber-800 hover:bg-[] rounded-[20px] disabled:opacity-60"
+                    disabled={isButtonDisabled}
+                  >
                     Sign In
                   </button>
                 </div>
